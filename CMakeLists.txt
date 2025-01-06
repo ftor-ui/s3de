@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.31)
 set(PROJECT_NAME s3de)
 project(${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} src/main.c)
+add_library(${PROJECT_NAME} STATIC include/s3de/s3de.h src/s3de.c)
+target_include_directories(${PROJECT_NAME} PUBLIC include/)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
