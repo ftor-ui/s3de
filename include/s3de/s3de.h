@@ -11,6 +11,6 @@ int s3deWindowIsClosed(s3deWindow* p_s3deWindow);
 
 void s3deRender(s3deWindow* p_s3deWindow);
 
-void s3deCloseWindow();
+void s3deTerminate(s3deWindow* p_s3deWindow);
 
 #endif

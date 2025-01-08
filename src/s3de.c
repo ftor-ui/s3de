@@ -32,12 +32,22 @@ s3deWindow* s3deCreateWindow(int width, int height, const char* title)
     s3deWindow* p_s3deWindow = (s3deWindow*)malloc(sizeof(s3deWindow));
     GLFWwindow* pWindow = glfwCreateWindow(width, height, title, NULL, NULL);
 
+    if (!pWindow) {
+        printf("ERROR: Can't create window!\n");
+        free(p_s3deWindow);
+        return NULL;
+    }
+
     p_s3deWindow->pWindow = pWindow;
     p_s3deWindow->height = height;
     p_s3deWindow->width = width;
 
     glfwMakeContextCurrent(p_s3deWindow->pWindow);
-    gladLoadGL();
+    if (!gladLoadGL()) {
+        printf("ERROR: Can't init glad!\n");
+        free(p_s3deWindow);
+        return NULL;
+    }
 
     return p_s3deWindow;
 }
@@ -60,7 +70,8 @@ void s3deRender(s3deWindow* p_s3deWindow)
     glfwPollEvents();
 }
 
-void s3deCloseWindow()
+void s3deTerminate(GLFWwindow* p_s3deWindow)
 {
     glfwTerminate();
+    free(p_s3deWindow);
 }
